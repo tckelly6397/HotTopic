@@ -1,0 +1,22 @@
+{
+  "hosted-zone:account=471112541900:domainName=lightfilm-ny.com:region=us-east-1": {
+    "Id": "/hostedzone/Z07779452PLQ6BDSDOQE0",
+    "Name": "lightfilm-ny.com."
+  },
+  "hosted-zone:account=637423312072:domainName=starfilm-ny.com:region=us-east-1": {
+    "Id": "/hostedzone/Z09612513G991S81DZQPC",
+    "Name": "starfilm-ny.com."
+  },
+  "hosted-zone:account=975049969523:domainName=rsna-2024.accessiumgroup.com:region=us-east-1": {
+    "Id": "/hostedzone/Z07939351WTF4WABBQ4UV",
+    "Name": "rsna-2024.accessiumgroup.com."
+  },
+  "hosted-zone:account=038462766847:domainName=maralathon.com:region=us-east-2": {
+    "Id": "/hostedzone/Z0405132GI0EXUSVPJVS",
+    "Name": "maralathon.com."
+  },
+  "hosted-zone:account=038462766847:domainName=tempai.tech:region=us-east-2": {
+    "Id": "/hostedzone/Z08325433P0NC6HRGJ539",
+    "Name": "tempai.tech."
+  }
+}
