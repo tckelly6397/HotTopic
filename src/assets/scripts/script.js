@@ -1,6 +1,6 @@
 console.log("Hello world");
 
-function example() {
+function getTemp() {
     console.log("Clicked");
     let longitude = document.getElementById('Longitude').value;
     let latitude = document.getElementById('Latitude').value;
