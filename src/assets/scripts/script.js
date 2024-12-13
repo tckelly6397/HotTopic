@@ -1,6 +1,9 @@
 console.log("Hello world");
 
-document.onload = () => {
+let latitude = 43.0;
+let longitude = -78.78;
+
+window.onload = () => {
     const today = new Date();
     const formattedDate = today.toISOString().split('T')[0];
 
@@ -10,8 +13,6 @@ document.onload = () => {
 
 function getTemp() {
     console.log("Clicked");
-    let longitude = document.getElementById('Longitude').value;
-    let latitude = document.getElementById('Latitude').value;
     let date = document.getElementById('date').value.split('-');
 
     let year = date[0];
@@ -42,7 +43,7 @@ function getTemp() {
         .then(data => {
             console.log(data);
 
-            displayText(parseFloat(JSON.parse(data.body).prediction).toFixed(2));
+            displayText(parseFloat(JSON.parse(data.body).prediction).toFixed(2) + "℉");
         })
         .catch(error => console.error('Error:', error));
 }
@@ -50,3 +51,33 @@ function getTemp() {
 function displayText(value) {
     document.getElementById('temp-out').innerText = value;
 }
+
+let map;
+let marker;
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 8,
+        center: { lat: latitude, lng: longitude },
+        mapTypeControl: false,
+    });
+
+    marker = new google.maps.Marker({
+        map,
+    });
+
+    // Add click listener for the map
+    map.addListener("click", (e) => {
+        const latLng = e.latLng;
+        // Set the marker position to the clicked location
+        marker.setPosition(latLng);
+        // Log latitude and longitude to the console
+        console.log("Latitude:", latLng.lat(), "Longitude:", latLng.lng());
+        latitude = latLng.lat();
+        longitude = latLng.lng();
+    });
+}
+
+// Assign `initMap` to the global scope so Google Maps API can call it
+window.initMap = initMap;
+

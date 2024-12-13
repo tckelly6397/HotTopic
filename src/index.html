@@ -12,9 +12,104 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" integrity="sha512-7x3zila4t2qNycrtZ31HO0NnJr8kg2VI67YLoRSyi9hGhRN66FHYWr7Axa9Y1J9tGYHVBPqIjSE1ogHrJTz51g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="./assets/scripts/script.js"></script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBfFaUpHYLNTdEV1iq0Rr1biMELJl46mI&callback=initMap&v=weekly&solution_channel=GMP_CCS_geocodingservice_v2"
+            defer
+                ></script>
     </head>
 
     <body class="bg-gray-100">
+        <style>
+#map {
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    border-radius: 0.375rem; /* Match Tailwind rounded-md */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+      /* Optional: Makes the sample page fill the window. */
+      /* html,
+         body {
+             height: 100%;
+             margin: 0;
+             padding: 0;
+         } */
+
+      input[type="text"] {
+          background-color: #fff;
+          border: 0;
+          border-radius: 2px;
+          box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+          margin: 10px;
+          padding: 0 0.5em;
+          font: 400 18px Roboto, Arial, sans-serif;
+          overflow: hidden;
+          line-height: 40px;
+          margin-right: 0;
+          min-width: 25%;
+      }
+
+      input[type="button"] {
+          background-color: #fff;
+          border: 0;
+          border-radius: 2px;
+          box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+          margin: 10px;
+          padding: 0 0.5em;
+          font: 400 18px Roboto, Arial, sans-serif;
+          overflow: hidden;
+          height: 40px;
+          cursor: pointer;
+          margin-left: 5px;
+      }
+      input[type="button"]:hover {
+          background: rgb(235, 235, 235);
+      }
+      input[type="button"].button-primary {
+          background-color: #1a73e8;
+          color: white;
+      }
+      input[type="button"].button-primary:hover {
+          background-color: #1765cc;
+      }
+      input[type="button"].button-secondary {
+          background-color: white;
+          color: #1a73e8;
+      }
+      input[type="button"].button-secondary:hover {
+          background-color: #d2e3fc;
+      }
+
+      #response-container {
+          background-color: #fff;
+          border: 0;
+          border-radius: 2px;
+          box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+          margin: 10px;
+          padding: 0 0.5em;
+          font: 400 18px Roboto, Arial, sans-serif;
+          overflow: hidden;
+          overflow: auto;
+          max-height: 50%;
+          max-width: 90%;
+          background-color: rgba(255, 255, 255, 0.95);
+          font-size: small;
+      }
+
+      #instructions {
+          background-color: #fff;
+          border: 0;
+          border-radius: 2px;
+          box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+          margin: 10px;
+          padding: 0 0.5em;
+          font: 400 18px Roboto, Arial, sans-serif;
+          overflow: hidden;
+          padding: 1rem;
+          font-size: medium;
+      }
+        </style>
         
         <section class="py-10 md:py-16">
 
@@ -89,29 +184,26 @@
             <div class="container max-w-screen-xl mx-auto px-4">
 
                 <div class="flex flex-col lg:flex-row justify-around">
-                    <div class="mb-10 lg:mb-0">
-                        <h1 class="font-medium text-gray-700 text-3xl md:text-4xl mb-5">Enter the follwoing info <br> to get your forecast:</h1>
+                    <div class="mb-10 lg:mb-0" style="width: 50%">
+                        <h1 class="font-medium text-gray-700 text-3xl md:text-4xl mb-5" style="text-align: center">Enter the follwoing info <br> to get your forecast:</h1>
                         <br>
 
                         <div id="map"></div>
 
                         <center>
-                            <input type="text" id="Longitude" name="Longitude" placeholder="Longitude"><br><br>
-                            <input type="text" id="Latitude" name="Latitude" placeholder="Latitude"><br><br>
                             <input type="date" id="date" name="date"><br><br>
                             <button onclick="getTemp()" class="px-7 py-3 md:px-9 md:py-4 bg-white font-medium md:font-semibold text-gray-700 text-md rounded-md hover:bg-gray-700 hover:text-white transition ease-linear duration-500">Generate my Forecast!</button>
                         </center>
                         <!-- <p class="font-normal text-gray-500 text-xs md:text-base">Specific Location<br> Other potential info</p> -->
                     </div>
 
-                    <div class="space-y-24">
-                        <div class="flex space-x-6">
+                    <div class="space-y-24" style="width: 50%">
+                        <div class="flex space-x-6" style="height: 100%">
                             <!-- <h1 class="font-normal text-gray-700 text-3xl md:text-4xl">01</h1> -->
 
                             <!-- <span class="w-28 h-0.5 bg-gray-300 mt-5"></span> -->
-
-                            <div>
-                                <div id="temp-out" style="font-size: 200px; font-weight: 900">
+                                <div id="temp-out" style="font-size: 200px; font-weight: 900; margin: auto;">
+                                   X℉
                                 </div>
                             </div>
                         </div>
@@ -457,221 +549,4 @@
 
 
 
-
-
-
-
-<!DOCTYPE html>
-<!--
- @license
- Copyright 2019 Google LLC. All Rights Reserved.
- SPDX-License-Identifier: Apache-2.0
--->
-<html>
-  <head>
-    <title>Geocoding Service</title>
-    <script>
-      /**
-       * @license
-       * Copyright 2019 Google LLC. All Rights Reserved.
-       * SPDX-License-Identifier: Apache-2.0
-       */
-      let map;
-      let marker;
-      let geocoder;
-      let responseDiv;
-      let response;
-
-       function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 8,
-          center: { lat: -34.397, lng: 150.644 },
-          mapTypeControl: false,
-        });
-        geocoder = new google.maps.Geocoder();
-
-        const inputText = document.createElement("input");
-
-        inputText.type = "text";
-        inputText.placeholder = "Enter a location";
-
-        const submitButton = document.createElement("input");
-
-        submitButton.type = "button";
-        submitButton.value = "Geocode";
-        submitButton.classList.add("button", "button-primary");
-
-        const clearButton = document.createElement("input");
-
-        clearButton.type = "button";
-        clearButton.value = "Clear";
-        clearButton.classList.add("button", "button-secondary");
-        response = document.createElement("pre");
-        response.id = "response";
-        response.innerText = "";
-        responseDiv = document.createElement("div");
-        responseDiv.id = "response-container";
-        responseDiv.appendChild(response);
-
-        const instructionsElement = document.createElement("p");
-
-        instructionsElement.id = "instructions";
-        instructionsElement.innerHTML =
-          "<strong>Instructions</strong>: Enter an address in the textbox to geocode or click on the map to reverse geocode.";
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(inputText);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(submitButton);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(clearButton);
-        map.controls[google.maps.ControlPosition.LEFT_TOP].push(
-          instructionsElement
-        );
-        map.controls[google.maps.ControlPosition.LEFT_TOP].push(responseDiv);
-        marker = new google.maps.Marker({
-          map,
-        });
-        map.addListener("click", (e) => {
-          geocode({ location: e.latLng });
-        });
-        submitButton.addEventListener("click", () =>
-          geocode({ address: inputText.value })
-        );
-        clearButton.addEventListener("click", () => {
-          clear();
-        });
-        clear();
-      }
-
-      function clear() {
-        marker.setMap(null);
-      }
-
-      function geocode(request) {
-        clear();
-        geocoder
-          .geocode(request)
-          .then((result) => {
-            const { results } = result;
-
-            map.setCenter(results[0].geometry.location);
-            marker.setPosition(results[0].geometry.location);
-            marker.setMap(map);
-            response.innerText = JSON.stringify(result, null, 2);
-            return results;
-          })
-          .catch((e) => {
-            alert("Geocode was not successful for the following reason: " + e);
-          });
-      }
-
-      window.initMap = initMap;
-    </script>
-    <style>
-      /**
-       * @license
-       * Copyright 2019 Google LLC. All Rights Reserved.
-       * SPDX-License-Identifier: Apache-2.0
-       */
-      /**
-       * Always set the map height explicitly to define the size of the div element
-       * that contains the map. 
-       */
-       #map {
-            width: 100%;
-            max-width: 600px;
-            height: 400px;
-            border-radius: 0.375rem; /* Match Tailwind rounded-md */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-      /* Optional: Makes the sample page fill the window. */
-      /* html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      } */
-
-      input[type="text"] {
-        background-color: #fff;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 10px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        line-height: 40px;
-        margin-right: 0;
-        min-width: 25%;
-      }
-
-      input[type="button"] {
-        background-color: #fff;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 10px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        height: 40px;
-        cursor: pointer;
-        margin-left: 5px;
-      }
-      input[type="button"]:hover {
-        background: rgb(235, 235, 235);
-      }
-      input[type="button"].button-primary {
-        background-color: #1a73e8;
-        color: white;
-      }
-      input[type="button"].button-primary:hover {
-        background-color: #1765cc;
-      }
-      input[type="button"].button-secondary {
-        background-color: white;
-        color: #1a73e8;
-      }
-      input[type="button"].button-secondary:hover {
-        background-color: #d2e3fc;
-      }
-
-      #response-container {
-        background-color: #fff;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 10px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        overflow: auto;
-        max-height: 50%;
-        max-width: 90%;
-        background-color: rgba(255, 255, 255, 0.95);
-        font-size: small;
-      }
-
-      #instructions {
-        background-color: #fff;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 10px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        padding: 1rem;
-        font-size: medium;
-      }
-    </style>
-  </head>
-  <body>
-    
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBfFaUpHYLNTdEV1iq0Rr1biMELJl46mI&callback=initMap&v=weekly&solution_channel=GMP_CCS_geocodingservice_v2"
-      defer
-    ></script>
-  </body>
-</html>
-    
 
