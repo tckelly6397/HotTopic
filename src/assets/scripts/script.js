@@ -1,10 +1,22 @@
 console.log("Hello world");
 
+document.onload = () => {
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0];
+
+    // Set the value of the date input to today's date
+    document.getElementById('date').value = formattedDate;
+};
+
 function getTemp() {
     console.log("Clicked");
     let longitude = document.getElementById('Longitude').value;
     let latitude = document.getElementById('Latitude').value;
-    let date = document.getElementById('date');
+    let date = document.getElementById('date').value.split('-');
+
+    let year = date[0];
+    let month = date[1];
+    let day = date[2];
 
     console.log(longitude);
     console.log(latitude);
@@ -18,9 +30,9 @@ function getTemp() {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({body: {
-            year: 'test',
-            month: '5',
-            day: '1',
+            year,
+            month,
+            day,
             latitude,
             longitude
         }
@@ -28,8 +40,9 @@ function getTemp() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-            displayText("hello world");
+            console.log(data);
+
+            displayText(parseFloat(JSON.parse(data.body).prediction).toFixed(2));
         })
         .catch(error => console.error('Error:', error));
 }
