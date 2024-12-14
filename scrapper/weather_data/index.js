@@ -1,5 +1,5 @@
 const axios = require('axios');
-const fs = require('fs');  // File system module to write data to CSV
+const fs = require('fs');
 
 const cities = JSON.parse(fs.readFileSync('../cities/file_modified.json', 'utf8'));
 
@@ -32,32 +32,24 @@ async function writeWeatherData(lat, long) {
             const response = await axios.get(url, { params });
             const data = response.data;
 
-            // Timezone and location attributes
             const utcOffsetSeconds = data.utc_offset_seconds;
             const daily = data.daily;
 
-            // Create the weather data structure for CSV output
             const weatherData = daily.time.map((t, index) => {
                 const date = new Date((new Date(t).getTime() + utcOffsetSeconds * 1000));
                 return {
-                    "mean temp": daily.temperature_2m_mean[index],  // Mean temperature
-                    "date": date.toISOString().split('T')[0],       // Only the date
+                    "mean temp": daily.temperature_2m_mean[index],
+                    "date": date.toISOString().split('T')[0],
                 };
             });
 
-            // Create CSV header
-            //let csvContent = "latitude,longitude,date,mean temp\n";
             let csvContent = "";
 
-            // Append each weather data record to CSV content
             weatherData.forEach(entry => {
                 csvContent += `${params.latitude},${params.longitude},${entry.date},${entry['mean temp']}\n`;
             });
 
-            // Write the CSV data to a file
-            // fs.writeFileSync('./weather_data3.csv', csvContent);
             fs.appendFileSync('./weather_data3.csv', csvContent);
-
 
             console.log(`City ${lat} ${long} written to weather_data3.csv`);
         } catch (error) {
